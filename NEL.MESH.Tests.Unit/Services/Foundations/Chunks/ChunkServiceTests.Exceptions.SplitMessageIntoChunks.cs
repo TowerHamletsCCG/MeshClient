@@ -3,7 +3,6 @@
 // ---------------------------------------------------------------
 
 using System;
-using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
 using NEL.MESH.Models.Foundations.Chunking.Exceptions;
@@ -16,7 +15,7 @@ namespace NEL.MESH.Tests.Unit.Services.Foundations.Chunks
     public partial class ChunkServiceTests
     {
         [Fact]
-        public async Task ShouldThrowServiceExceptionIfServiceErrorOccursOnSplitMessageIntoChunks()
+        public void ShouldThrowServiceExceptionIfServiceErrorOccursOnSplitMessageIntoChunks()
         {
             // given
             Message someMessage = CreateRandomMessage();

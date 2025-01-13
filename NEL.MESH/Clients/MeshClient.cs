@@ -18,20 +18,42 @@ using NEL.MESH.Services.Orchestrations.Mesh;
 
 namespace NEL.MESH.Clients
 {
+    /// <summary>
+    /// Represents a client for interacting with the Mesh service.
+    /// </summary>
     public class MeshClient : IMeshClient
     {
-        public MeshClient(MeshConfiguration meshConfigurations, ILoggerFactory? loggerFactory = null)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MeshClient"/> class with the specified configuration.
+        /// </summary>
+        /// <param name="meshConfigurations">The Mesh configuration settings.</param>
+        public MeshClient(MeshConfiguration meshConfigurations)
+        {
+            IHost host = RegisterServices(meshConfigurations, null);
+            Mailbox = InitializeClient(host);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MeshClient"/> class with the specified configuration 
+        /// and optional logger factory.
+        /// </summary>
+        /// <param name="meshConfigurations">The Mesh configuration settings.</param>
+        /// <param name="loggerFactory">An optional logger factory for logging operations.</param>
+        public MeshClient(MeshConfiguration meshConfigurations, ILoggerFactory loggerFactory = null)
         {
             IHost host = RegisterServices(meshConfigurations, loggerFactory);
             Mailbox = InitializeClient(host);
         }
 
+        /// <summary>
+        /// Gets the <see cref="IMailboxClient"/> instance for interacting with a MESH mailbox.
+        /// </summary>
         public IMailboxClient Mailbox { get; private set; }
 
         private static IMailboxClient InitializeClient(IHost host) =>
             host.Services.GetRequiredService<IMailboxClient>();
 
-        private static IHost RegisterServices(MeshConfiguration meshConfigurations, ILoggerFactory? loggerFactory)
+        private static IHost RegisterServices(MeshConfiguration meshConfigurations, ILoggerFactory loggerFactory)
         {
             if (loggerFactory is null)
             {

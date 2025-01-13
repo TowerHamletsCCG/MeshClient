@@ -7,8 +7,8 @@ namespace NEL.MESH.UI.Models
     public class MeshCertificates
     {
         public string Environment { get; set; } = string.Empty;
-        public string ClientCertificate { get; set; } = string.Empty;
-        public List<string> IntermediateCertificates { get; set; } = new List<string>();
-        public string RootCertificate { get; set; } = string.Empty;
+        public string ClientSigningCertificate { get; set; } = string.Empty;
+        public List<string> TlsRootCertificates { get; set; } = new List<string>();
+        public List<string> TlsIntermediateCertificates { get; set; } = new List<string>();
     }
 }

@@ -35,7 +35,7 @@ namespace NEL.MESH.Tests.Unit.Services.Foundations.Mesh
             this.compareLogic = new CompareLogic();
         }
 
-        public static TheoryData DependencyValidationResponseMessages()
+        public static TheoryData<HttpResponseMessage> DependencyValidationResponseMessages()
         {
             var invalidValue =
                 new HttpResponseMessage((HttpStatusCode)Enum.Parse(typeof(HttpStatusCode), "400"))
@@ -98,7 +98,7 @@ namespace NEL.MESH.Tests.Unit.Services.Foundations.Mesh
             };
         }
 
-        public static TheoryData DependencyResponseMessages()
+        public static TheoryData<HttpResponseMessage> DependencyResponseMessages()
         {
             var internalServerError =
                 new HttpResponseMessage((HttpStatusCode)Enum.Parse(typeof(HttpStatusCode), "500"))

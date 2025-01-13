@@ -2,7 +2,6 @@
 // Copyright (c) North East London ICB. All rights reserved.
 // ---------------------------------------------------------------
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Moq;
@@ -60,7 +59,7 @@ namespace NEL.MESH.Tests.Unit.Services.Orchestrations.Mesh
                 .ToList();
         }
 
-        public static TheoryData InvalidMessageList()
+        public static TheoryData<List<Message>> InvalidMessageList()
         {
             return new TheoryData<List<Message>>
             {
@@ -69,7 +68,7 @@ namespace NEL.MESH.Tests.Unit.Services.Orchestrations.Mesh
             };
         }
 
-        public static TheoryData MeshDependencyValidationExceptions()
+        public static TheoryData<Xeption> MeshDependencyValidationExceptions()
         {
             string randomMessage = GetRandomString();
             string exceptionMessage = randomMessage;
@@ -95,7 +94,7 @@ namespace NEL.MESH.Tests.Unit.Services.Orchestrations.Mesh
             };
         }
 
-        public static TheoryData MeshDependencyExceptions()
+        public static TheoryData<Xeption> MeshDependencyExceptions()
         {
             string randomMessage = GetRandomString();
             string exceptionMessage = randomMessage;
@@ -104,7 +103,7 @@ namespace NEL.MESH.Tests.Unit.Services.Orchestrations.Mesh
             return new TheoryData<Xeption>
             {
                 new TokenDependencyException(
-                    message: "Token dependency error occurred, contact support.", 
+                    message: "Token dependency error occurred, contact support.",
                     innerException),
 
                 new TokenServiceException(

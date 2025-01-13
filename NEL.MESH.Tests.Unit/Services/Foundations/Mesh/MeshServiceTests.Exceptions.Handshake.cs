@@ -2,7 +2,6 @@
 // Copyright (c) North East London ICB. All rights reserved.
 // ---------------------------------------------------------------
 
-using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using FluentAssertions;
@@ -117,7 +116,7 @@ namespace NEL.MESH.Tests.Unit.Services.Foundations.Mesh
 
             var httpRequestException =
                 new HttpRequestException($"{(int)response.StatusCode} - {response.ReasonPhrase}");
-          
+
             var failedMeshServiceException = new FailedMeshServiceException(
                 message: "Mesh service error occurred, contact support.",
                 innerException: httpRequestException);

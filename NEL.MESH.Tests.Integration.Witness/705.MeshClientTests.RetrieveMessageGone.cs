@@ -5,6 +5,7 @@
 using System.Threading.Tasks;
 using Force.DeepCloner;
 using NEL.MESH.Clients;
+using NEL.MESH.Models.Foundations.Mesh;
 using Xunit;
 
 namespace NEL.MESH.Tests.Integration.Witness
@@ -25,8 +26,8 @@ namespace NEL.MESH.Tests.Integration.Witness
             //string invalidMessageId = "20231123151625288395_ADB038";
 
             // when
-            //Message retrievedMessage =
-            //        await meshClient.Mailbox.RetrieveMessageAsync(invalidMessageId);
+            Message retrievedMessage =
+                    await meshClient.Mailbox.RetrieveMessageAsync(invalidMessageId);
 
             // then
         }

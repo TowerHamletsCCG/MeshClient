@@ -31,25 +31,25 @@ namespace NEL.MESH.Tests.Integration.Witness
 
             var configurationBuilder = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddJsonFile("local.appsettings.json", optional: true, reloadOnChange: true)
-                .AddEnvironmentVariables("NEL_MESH_CLIENT_INTEGRATION_");
+                .AddJsonFile("appsettings.Development.json", optional: true, reloadOnChange: true)
+                .AddEnvironmentVariables();
 
             IConfiguration configuration = configurationBuilder.Build();
-            bool RunAcceptanceTests = configuration.GetSection("RunAcceptanceTests").Get<bool>();
-            bool RunIntegrationTests = configuration.GetSection("RunIntegrationTests").Get<bool>();
             var mailboxId = configuration["MeshConfiguration:MailboxId"];
             var mexClientVersion = configuration["MeshConfiguration:MexClientVersion"];
             var mexOSName = configuration["MeshConfiguration:MexOSName"];
             var mexOSVersion = configuration["MeshConfiguration:MexOSVersion"];
             var password = configuration["MeshConfiguration:Password"];
-            var key = configuration["MeshConfiguration:Key"];
-            var clientCert = configuration["MeshConfiguration:ClientCertificate"];
-            var rootCert = configuration["MeshConfiguration:RootCertificate"];
+            var sharedKey = configuration["MeshConfiguration:SharedKey"];
             var url = configuration["MeshConfiguration:Url"];
             var maxChunkSizeInMegabytes = int.Parse(configuration["MeshConfiguration:MaxChunkSizeInMegabytes"]);
+            var clientSigningCertificate = configuration["MeshConfiguration:ClientSigningCertificate"];
 
-            var intermediateCertificates =
-                configuration.GetSection("MeshConfiguration:IntermediateCertificates")
+            var tlsRootCertificates = configuration.GetSection("MeshConfiguration:TlsRootCertificates")
+                .Get<List<string>>();
+
+            var tlsIntermediateCertificates =
+                configuration.GetSection("MeshConfiguration:TlsIntermediateCertificates")
                     .Get<List<string>>();
 
             this.meshConfigurations = new MeshConfiguration
@@ -59,10 +59,10 @@ namespace NEL.MESH.Tests.Integration.Witness
                 MexOSName = mexOSName,
                 MexOSVersion = mexOSVersion,
                 Password = password,
-                Key = key,
-                RootCertificate = GetCertificate(rootCert),
-                IntermediateCertificates = GetCertificates(intermediateCertificates.ToArray()),
-                ClientCertificate = GetCertificate(clientCert),
+                SharedKey = sharedKey,
+                TlsRootCertificates = GetCertificates(tlsRootCertificates.ToArray()),
+                TlsIntermediateCertificates = GetCertificates(tlsIntermediateCertificates.ToArray()),
+                ClientSigningCertificate = GetCertificate(clientSigningCertificate),
                 Url = url,
                 MaxChunkSizeInMegabytes = maxChunkSizeInMegabytes
             };

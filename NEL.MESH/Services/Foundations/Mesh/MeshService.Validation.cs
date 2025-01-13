@@ -21,7 +21,20 @@ namespace NEL.MESH.Services.Foundations.Mesh
             if (response.IsSuccessStatusCode == false)
             {
                 string body = response.Content.ReadAsStringAsync().Result;
-                SendMessageErrorResponse error = JsonConvert.DeserializeObject<SendMessageErrorResponse>(body);
+                SendMessageErrorResponse error;
+
+                try
+                {
+                    error = JsonConvert.DeserializeObject<SendMessageErrorResponse>(body);
+                }
+                catch (Exception exception)
+                {
+                    throw new HttpRequestException(
+                            message: $"Unable to deserialize response: {body}",
+                            inner: exception,
+                            statusCode: response.StatusCode);
+                }
+
                 string message = $"{(int)response.StatusCode} - {response.ReasonPhrase}";
 
                 var httpRequestException =

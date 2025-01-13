@@ -3,7 +3,6 @@
 // ---------------------------------------------------------------
 
 using System;
-using System.Threading.Tasks;
 using FluentAssertions;
 using NEL.MESH.Models.Foundations.Chunking.Exceptions;
 using NEL.MESH.Models.Foundations.Mesh;
@@ -15,7 +14,7 @@ namespace NEL.MESH.Tests.Unit.Services.Foundations.Chunks
     public partial class ChunkServiceTests
     {
         [Fact]
-        public async Task ShouldThrowValidationExceptionOnSplitMessageIntoChunksIfMessageIsNullAsync()
+        public void ShouldThrowValidationExceptionOnSplitMessageIntoChunksIfMessageIsNull()
         {
             // given
             Message nullMessage = null;

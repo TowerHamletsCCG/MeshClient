@@ -2,6 +2,9 @@
 // Copyright (c) North East London ICB. All rights reserved.
 // ---------------------------------------------------------------
 
+using System.Drawing;
+using System.Windows.Forms;
+
 namespace NEL.MESH.UI
 {
     partial class MeshMailbox
